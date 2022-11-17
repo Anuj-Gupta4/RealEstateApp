@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Login</h1>
+</div>
+<hr>
+<div class="card-body">
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}<br>
+    <input class="flex items-center px-2 py-1 text-white bg-pink-300 hover:bg-pink-400" type="submit"value="Login">
+</form>
+<br><hr><br>
+<p>Don't have an account?<a class = "hover:bg-pink-400 bg-pink-300 px-2 py-1 text-white" href="{% url 'register' %}">Register</a></p>
+</div>
+
+{% endblock content %}
