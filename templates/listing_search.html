@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <center><button class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400" type="submit">Submit form</button></center>
+        <center><button class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 border-violet-900" type="submit">Submit form</button></center>
         <br>
     </form>
 </div>
@@ -77,8 +77,8 @@
         {% if listing.Image %}
         <img src="{{ listing.Image.url }}" alt="">
         {% endif %}
-        <center><hr><a class="button" href="/listings/{{ listing.id }}/" class="text-blue-500">
-            View Details</a></center>
+        <br>
+        <center><a class="button" href="/listings/{{ listing.id }}/">View Details</a></center>
     </div>
 
     {% endfor %}
