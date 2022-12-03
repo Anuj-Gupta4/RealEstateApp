@@ -1,21 +1,28 @@
 {% extends "base.html" %}
 
-{% block content %}
-<!-- <style>
-body{
-background-image: url('C:\Users\Dell\Desktop\RE\real_estate\media\home-5.jpg');
-};
-</style> -->
-<div class="container"><br>
-    <center><h1 class="text-4xl text-gray-900">Create a New Listing</h1></center>
-    <br><hr><br>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <br>
-        <center><button type="submit" class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 border-violet-900">Submit</button></center>
-        <br><!-- <center><button type="submit"  class="btn btn-success" style="color: #2ecc71">Submit</button></center> -->
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
 
-{% endblock %}
+    <div class="container"><br>
+        <center><h1 class="text-4xl text-gray-900">Create a New Listing</h1></center>
+        <br><hr><br>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <center><button type="submit" class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 border-violet-900">Submit</button></center>
+            <br>
+        </form>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

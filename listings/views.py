@@ -109,7 +109,7 @@ class listing_create(LoginRequiredMixin, CreateView):
     fields= ['Title', 'Location', 'City', 'Price', 'Bedroom', 'Bathroom', 'Floors', 'Parking', 'Face', 'Area', 'Road_Width', 
     'Road_Type', 'Build_Area', 'Amenities', 'Contact_number', 'Contact_mail', 'Image']
     template_name='listing_create.html'
-    success_url=reverse_lazy('listing_list')
+    success_url=reverse_lazy('user_specific_listings')
     def form_valid(self,form):
         form.instance.user=self.request.user
         print(form.instance.user)
