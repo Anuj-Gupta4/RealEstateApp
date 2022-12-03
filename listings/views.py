@@ -1,4 +1,3 @@
-
 from multiprocessing import context
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -106,8 +105,9 @@ def listing_retrieve(request,pk):
 #CRUD -Create, Retrieve, Update, Delete
 class listing_create(LoginRequiredMixin, CreateView):
     model = Listing
-    fields= ['Title', 'Location', 'City', 'Price', 'Bedroom', 'Bathroom', 'Floors', 'Parking', 'Face', 'Area', 'Road_Width', 
-    'Road_Type', 'Build_Area', 'Amenities', 'Contact_number', 'Contact_mail', 'Image']
+    form_class = ListingForm
+    # fields= ['Title', 'Location', 'City', 'Price', 'Bedroom', 'Bathroom', 'Floors', 'Parking', 'Face', 'Area', 'Road_Width', 
+    # 'Road_Type', 'Build_Area', 'Amenities', 'Contact_number', 'Contact_mail', 'Image']
     template_name='listing_create.html'
     success_url=reverse_lazy('user_specific_listings')
     def form_valid(self,form):
