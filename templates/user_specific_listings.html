@@ -9,7 +9,7 @@
     {% for listing in listings %}
         
         <div class="mt-2 px-3 py-2 bg-gray-100 rounded-sm">
-            <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3>
+            <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><br>
             {% if listing.Image %}
             <img src="{{ listing.Image.url }}" alt="">
             {% endif %}
