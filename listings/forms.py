@@ -22,7 +22,7 @@ class ListingForm(ModelForm):
         "Contact_number", 
         "Contact_mail",
         "Image",
-        "is_sold"
+        # "is_sold"
         ]
         widgets = {
             'Title':forms.TextInput(attrs={'class':'form-control'}),
@@ -42,6 +42,6 @@ class ListingForm(ModelForm):
             'Contact_number':forms.NumberInput(attrs={'class':'form-control'}),
             'Contact_mail':forms.TextInput(attrs={'class':'form-control'}),
             'Image':forms.ClearableFileInput(attrs={'class':'form-control'}),
-            'is_sold':forms.CheckboxInput(attrs={'class':'form-control'}),
+            # 'is_sold':forms.CheckboxInput(attrs={'class':'form-control'}),
         }
         
