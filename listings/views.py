@@ -89,31 +89,31 @@ def listing_retrieve(request,pk):
     }
     return render(request,"listing.html",context)
 
-# @login_required
-# def listing_create(request):
-#     form = ListingForm()
-#     if request.method == "POST":
-#         form = ListingForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("listings/")
+@login_required
+def listing_create(request):
+    form = ListingForm()
+    if request.method == "POST":
+        form = ListingForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("listings/")
 
-#     context = {
-#         "form":form
-#     }
-#     return render(request, "listing_create.html", context)
+    context = {
+        "form":form
+    }
+    return render(request, "listing_create.html", context)
 
 #CRUD -Create, Retrieve, Update, Delete
-class listing_create(LoginRequiredMixin, CreateView):
-    model = Listing
-    fields= ['Title', 'Location', 'City', 'Price', 'Bedroom', 'Bathroom', 'Floors', 'Parking', 'Face', 'Area', 'Road_Width', 
-    'Road_Type', 'Build_Area', 'Amenities', 'Contact_number', 'Contact_mail', 'Image']
-    template_name='listing_create.html'
-    success_url=reverse_lazy('user_specific_listings')
-    def form_valid(self,form):
-        form.instance.user=self.request.user
-        print(form.instance.user)
-        return super(listing_create,self).form_valid(form)
+# class listing_create(LoginRequiredMixin, CreateView):
+#     model = Listing
+#     fields= ['Title', 'Location', 'City', 'Price', 'Bedroom', 'Bathroom', 'Floors', 'Parking', 'Face', 'Area', 'Road_Width', 
+#     'Road_Type', 'Build_Area', 'Amenities', 'Contact_number', 'Contact_mail', 'Image']
+#     template_name='listing_create.html'
+#     success_url=reverse_lazy('user_specific_listings')
+#     def form_valid(self,form):
+#         form.instance.user=self.request.user
+#         print(form.instance.user)
+#         return super(listing_create,self).form_valid(form)
 
 @login_required
 def listing_update(request, pk):

@@ -1,33 +1,44 @@
 {% extends "base.html" %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
 
-<div class="px-3 py-2 bg-blue-100 rounded-sm">
-    <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr>
-    <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
-    <p class="text-gray-800">City: {{listing.City}}</p>
-    <p class="text-gray-800">Address: {{listing.Location}}</p>
-    <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
-    <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>
-    <p class="text-gray-800">Facing Direction: {{listing.Face}}</p>
-    <p class="text-gray-800">Bedrooms: {{listing.Bedroom}}</p>
-    <p class="text-gray-800">Bathrooms: {{listing.Bathroom}}</p>
-    <p class="text-gray-800">Parking: {{listing.Parking}}</p>
-    <p class="text-gray-800">Amenities: {{listing.Amenities}}</p>
-    <p class="text-gray-800">Width of Road: {{listing.Road_Width}} feet</p>
-    <p class="text-gray-800">Type of Road: {{listing.Road_Type}}</p>
-    <p class="text-gray-800">Owner number: {{listing.Contact_number}}</p>
-    <p class="text-gray-800">Owner E-Mail: {{listing.Contact_mail}}</p>
-    <p>Picture: <br><img src="{{ listing.Image.url }}" alt=""></p>
-    
-    {% if request.user.is_staff %}
-    <div class="mt-2 py-2 border-t border-gray-200">
-        <a href="/listings/{{ listing.id }}/edit/" class="text-blue-500">
-            Edit</a>
-        <a href="/listings/{{ listing.id }}/delete/" class="ml-3 text-blue-500">
-            Delete</a>
+    <div class="px-3 py-2 bg-blue-100 rounded-sm">
+        <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr>
+        <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
+        <p class="text-gray-800">City: {{listing.City}}</p>
+        <p class="text-gray-800">Address: {{listing.Location}}</p>
+        <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
+        <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>
+        <p class="text-gray-800">Facing Direction: {{listing.Face}}</p>
+        <p class="text-gray-800">Bedrooms: {{listing.Bedroom}}</p>
+        <p class="text-gray-800">Bathrooms: {{listing.Bathroom}}</p>
+        <p class="text-gray-800">Parking: {{listing.Parking}}</p>
+        <p class="text-gray-800">Amenities: {{listing.Amenities}}</p>
+        <p class="text-gray-800">Width of Road: {{listing.Road_Width}} feet</p>
+        <p class="text-gray-800">Type of Road: {{listing.Road_Type}}</p>
+        <p class="text-gray-800">Owner number: {{listing.Contact_number}}</p>
+        <p class="text-gray-800">Owner E-Mail: {{listing.Contact_mail}}</p>
+        <p>Picture: <br><img src="{{ listing.Image.url }}" alt=""></p>
+        
+        {% if request.user.is_staff %}
+        <div class="mt-2 py-2 border-t border-gray-200">
+            <a href="/listings/{{ listing.id }}/edit/" class="text-blue-500">
+                Edit</a>
+            <a href="/listings/{{ listing.id }}/delete/" class="ml-3 text-blue-500">
+                Delete</a>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 
-{% endblock %}
+    {% endblock %}
+</body>
+</html>
