@@ -8,9 +8,9 @@
 <div class="card-body">
     <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form.as_table }}
         <br>
-        <input type="submit" class="flex items-center px-2 py-1 text-white bg-pink-300 hover:bg-pink-400" value="Register"><br><hr>
+        <br><input type="submit" class="flex items-center px-2 py-1 text-white bg-pink-300 hover:bg-pink-400" value="Register"><br><hr>
     </form><br>
 
     <p>Already have an account?<a class = "hover:bg-pink-400 bg-pink-300 px-2 py-1 text-white" href="{% url 'login' %}">
