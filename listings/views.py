@@ -212,15 +212,22 @@ def listing_search(request):
         Area = ''
 
     # Price
-    if 'Price' in request.GET:
-        Price = request.GET['Price']
-        if Price:
-            queryset_list=queryset_list.filter(Price__lte=Price)
+    if 'Min_Price' in request.GET:
+        Min_Price = request.GET['Min_Price']
+        if Min_Price:
+            queryset_list=queryset_list.filter(Price__gte=Min_Price)
     else:
-        Price = ''
+        Min_Price = ''
+
+    if 'Max_Price' in request.GET:
+        Max_Price = request.GET['Max_Price']
+        if Max_Price:
+            queryset_list=queryset_list.filter(Price__lte=Max_Price)
+    else:
+        Max_Price = ''
                 
     context={
-        'listings':queryset_list, 'Price':Price, 'Area':Area, 'Floors':Floors, 'Bathroom':Bathroom, 'Bedroom':Bedroom,
+        'listings':queryset_list, 'Min_Price':Min_Price,'Max_Price':Max_Price, 'Area':Area, 'Floors':Floors, 'Bathroom':Bathroom, 'Bedroom':Bedroom,
         'Face':Face, 'City': city, 'Title': Title
     }
 
