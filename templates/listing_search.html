@@ -3,70 +3,75 @@
 {% block content %}
 <div class="container"><br>
 <center><h1 class="text-4xl text-gray-900">Search estate of your choice</h1></center><br>
-<div>
-    <form class="form-inline" action="{% url 'listing_search' %}" method="get" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Title</label>
-                <input type="text" name="Title" class="form-control" placeholder="Title/Keywords"  value="{{ Title}}">
+    <div>
+        <form class="form-inline" action="{% url 'listing_search' %}" method="get" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Title</label>
+                    <input type="text" name="Title" class="form-control" placeholder="Title/Keywords"  value="{{ Title}}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">City</label>
-                <input type="text" name="City" class="form-control" placeholder="City"  value="{{ City}}">
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">City</label>
+                    <input type="text" name="City" class="form-control" placeholder="City"  value="{{ City}}">
+                </div>
             </div>
-        </div>
-            
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Face</label>
-                <input type="text" name="Face" class="form-control" placeholder="Face"  value="{{ Face}}">
+                
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Face</label>
+                    <input type="text" name="Face" class="form-control" placeholder="Face"  value="{{ Face}}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Price</label>
-                <input type="text" name="Price" class="form-control" placeholder="Max. Price"  value="{{ Price}}">
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Price</label>
+                    <input type="text" name="Price" class="form-control" placeholder="Max. Price"  value="{{ Price}}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Area</label>
-                <input type="text" name="Area" class="form-control" placeholder="Max. Area"  value="{{ Area}}">
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Area</label>
+                    <input type="text" name="Area" class="form-control" placeholder="Max. Area"  value="{{ Area}}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Bedroom</label>
-                <input type="text" name="Bedroom" class="form-control" placeholder="Min. Bedrooms"  value="{{ Bedroom}}">
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Bedroom</label>
+                    <input type="text" name="Bedroom" class="form-control" placeholder="Min. Bedrooms"  value="{{ Bedroom}}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Bathroom</label>
-                <input type="text" name="Bathroom" class="form-control" placeholder="Min. Bathroom"  value="{{ Bathroom}}">
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Bathroom</label>
+                    <input type="text" name="Bathroom" class="form-control" placeholder="Min. Bathroom"  value="{{ Bathroom}}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-check form-check-inline">
-            <div class="col-md-18 mb-3">
-                <label class="sr-only">Floors</label>
-                <input type="text" name="Floors" class="form-control" placeholder="Min. Floors"  value="{{ Floors}}">
+            <div class="form-check form-check-inline">
+                <div class="col-md-18 mb-3">
+                    <label class="sr-only">Floors</label>
+                    <input type="text" name="Floors" class="form-control" placeholder="Min. Floors"  value="{{ Floors}}">
+                </div>
             </div>
-        </div>
 
-        <center><button class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 border-violet-900" type="submit">Submit form</button></center>
-        <br>
-    </form>
+            <center><button class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 border-violet-900" type="submit">Submit form</button></center>
+            <br>
+        </form>
+    </div>
 </div>
-</div>
+
+{% if not request.user.is_authenticated %}
+<h1><strong>Note: Please login in order to order to unlock the View Details button of these real estates</strong></h1>
+{% endif %}
+
 <br><hr><h1><strong>Results:</strong></h1>
 <div class = "container">
     {% if listings %}
@@ -78,7 +83,9 @@
         <img src="{{ listing.Image.url }}" alt="">
         {% endif %}
         <br>
+        {% if request.user.is_authenticated %}
         <center><a class="button" href="/listings/{{ listing.id }}/">View Details</a></center>
+        {% endif %}
     </div>
 
     {% endfor %}

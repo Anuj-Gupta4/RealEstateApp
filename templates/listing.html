@@ -15,18 +15,22 @@
         <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr>
         <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
         <p class="text-gray-800">City: {{listing.City}}</p>
-        <p class="text-gray-800">Address: {{listing.Location}}</p>
-        <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
-        <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>
-        <p class="text-gray-800">Facing Direction: {{listing.Face}}</p>
-        <p class="text-gray-800">Bedrooms: {{listing.Bedroom}}</p>
-        <p class="text-gray-800">Bathrooms: {{listing.Bathroom}}</p>
-        <p class="text-gray-800">Parking: {{listing.Parking}}</p>
-        <p class="text-gray-800">Amenities: {{listing.Amenities}}</p>
-        <p class="text-gray-800">Width of Road: {{listing.Road_Width}} feet</p>
-        <p class="text-gray-800">Type of Road: {{listing.Road_Type}}</p>
-        <p class="text-gray-800">Owner number: {{listing.Contact_number}}</p>
-        <p class="text-gray-800">Owner E-Mail: {{listing.Contact_mail}}</p>
+            {% if request.user.is_authenticated %}
+            <p class="text-gray-800">Address: {{listing.Location}}</p>
+            <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
+            <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>
+            <p class="text-gray-800">Facing Direction: {{listing.Face}}</p>
+            <p class="text-gray-800">Bedrooms: {{listing.Bedroom}}</p>
+            <p class="text-gray-800">Bathrooms: {{listing.Bathroom}}</p>
+            <p class="text-gray-800">Parking: {{listing.Parking}}</p>
+            <p class="text-gray-800">Amenities: {{listing.Amenities}}</p>
+            <p class="text-gray-800">Width of Road: {{listing.Road_Width}} feet</p>
+            <p class="text-gray-800">Type of Road: {{listing.Road_Type}}</p>
+            <!-- <p class="text-gray-800">Description: {{listing.Description}}</p> -->
+            <p class="text-gray-800">Owner number: {{listing.Contact_number}}</p>
+            <p class="text-gray-800">Owner E-Mail: {{listing.Contact_mail}}</p><br>
+            {% endif %}
+        <h1 class="text-2xl text-gray-800">Status: <strong>{{listing.is_sold|yesno:"Sold, Not Sold Yet"}}</strong></h1><br>
         <p>Picture: <br><img src="{{ listing.Image.url }}" alt=""></p>
         
         {% if request.user.is_staff %}
