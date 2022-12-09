@@ -22,7 +22,7 @@ class ListingForm(forms.ModelForm):
         "Contact_mail",
         "Image",
         "is_sold",
-        # "Description"
+        "Description"
         ]
         labels = {
             "is_sold": "Sell Status (Please tick if your real estate has already been sold.)",
@@ -50,7 +50,7 @@ class ListingForm(forms.ModelForm):
             'Road_Type':forms.TextInput(attrs={'class':'form-control'}),
             'Build_Area':forms.NumberInput(attrs={'class':'form-control'}),
             'Amenities':forms.TextInput(attrs={'class':'form-control'}),
-            # 'Description':forms.Textarea(attrs={'class':'form-control'}),
+            'Description':forms.Textarea(attrs={'class':'form-control'}),
             'Contact_number':forms.NumberInput(attrs={'class':'form-control'}),
             'Contact_mail':forms.EmailInput(attrs={'class':'form-control'}),
             'Image':forms.ClearableFileInput(attrs={'class':'form-control'}),

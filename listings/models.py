@@ -22,7 +22,7 @@ class Listing(models.Model):
     Image = models.ImageField(max_length = 254)
     user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
     is_sold = models.BooleanField(default=False)
-    # Description = models.CharField(max_length=200, default="Please describe your estate here. You may also justify the price of your estate here.")
+    Description = models.CharField(max_length=1000, default="Please describe your estate here. You may also justify the price of your estate here.")
 
     def __str__(self):
         return self.Title

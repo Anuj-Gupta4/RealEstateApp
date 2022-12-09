@@ -80,13 +80,6 @@ def listing_list(request):
     }
     return render(request, "listings.html", context)
 
-@login_required
-def listing_retrieve(request,pk):
-    listing= Listing.objects.get(id=pk)
-    context={
-        "listing":listing
-    }
-    return render(request,"listing.html",context)
 
 # @login_required
 # def listing_create(request):
@@ -114,6 +107,14 @@ class listing_create(LoginRequiredMixin, CreateView):
         form.instance.user=self.request.user
         print(form.instance.user)
         return super(listing_create,self).form_valid(form)
+
+@login_required
+def listing_retrieve(request,pk):
+    listing= Listing.objects.get(id=pk)
+    context={
+        "listing":listing
+    }
+    return render(request,"listing.html",context)
 
 @login_required
 def listing_update(request, pk):
