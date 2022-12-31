@@ -124,6 +124,8 @@ def listing_update(request, pk):
         form = ListingForm(request.POST, instance=listing, files = request.FILES)
         if form.is_valid():
             form.save()
+            # context["success"] = True
+            # context["successmsg"] = "Details successfully updated"
             return redirect("/user_specific_listings")
     else:
         form = ListingForm(instance=listing)
