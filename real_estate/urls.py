@@ -14,7 +14,8 @@ from listings.views import (
     listing_update, 
     listing_delete,
     listing_search,
-    user_specific_listings
+    user_specific_listings,
+    add_comment
     )
 
 urlpatterns = [
@@ -30,7 +31,8 @@ urlpatterns = [
     path('add-listing', listing_create.as_view(), name='listing_create'),
     path('listings/<pk>/edit/', listing_update, name='listing_update'),
     path('listings/<pk>/delete/', listing_delete, name='listing_delete'),
-    path('listing_search', listing_search, name='listing_search')
+    path('listing_search', listing_search, name='listing_search'),
+    path('listings/<pk>/comment/', add_comment.as_view(), name='add_comment'),
 ]
 
 if settings.DEBUG:

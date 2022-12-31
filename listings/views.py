@@ -7,8 +7,8 @@ from django.contrib.auth import login
 from django.views.generic.edit import CreateView, FormView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .models import Listing
-from .forms import ListingForm
+from .models import Listing, Comment
+from .forms import ListingForm, CommentForm
 import pandas as pd
 import joblib
 
@@ -94,6 +94,17 @@ def listing_list(request):
 #         "form":form
 #     }
 #     return render(request, "listing_create.html", context)
+
+class add_comment(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+
+    def form_valid(self,form):
+        form.instance.listing_id=self.kwargs['pk']
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('listing_list')
 
 #CRUD -Create, Retrieve, Update, Delete
 class listing_create(LoginRequiredMixin, CreateView):

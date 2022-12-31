@@ -26,3 +26,15 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.Title
+
+class Comment(models.Model):
+    listing = models.ForeignKey(Listing, related_name = "comments", on_delete = models.CASCADE)
+    name = models.CharField(max_length=100, default="Anonymous User")
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    # def sample_view(request):
+    #     name = request.user
+
+    def __str__(self):
+        return '%s - %s' % (self.listing.Title, self.name)
