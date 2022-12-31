@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing
+from .models import Listing, Comment
 
 class ListingForm(forms.ModelForm):
     class Meta:
@@ -55,5 +55,20 @@ class ListingForm(forms.ModelForm):
             'Contact_mail':forms.EmailInput(attrs={'class':'form-control'}),
             'Image':forms.ClearableFileInput(attrs={'class':'form-control'}),
             'is_sold':forms.CheckboxInput(attrs={'class':'w-8 h-8'}),
+        }
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["name", 
+        "body"
+        ]
+        labels = {
+            'name':'Name',
+            'body':'Comment'
+        }
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'body':forms.Textarea(attrs={'class':'form-control'}),
         }
         
