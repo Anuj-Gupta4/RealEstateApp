@@ -1,29 +1,18 @@
 {% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% block content %}
+{% block content %}
 
-    <div class="container"><br>
-        <center><h1 class="text-4xl text-gray-900">Add a New Comment</h1></center>
-        <br><hr><br>
-        <div class="form-group">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br><center><button type="submit" class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 
-                    border-violet-900">Post</button></center><br>
-            </form>
-        </div>
+<div class="container"><br>
+    <center><h1 class="text-4xl text-gray-900">Add a New Comment</h1></center>
+    <br><hr><br>
+    <div class="form-group">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br><center><button type="submit" class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400 border-2 
+                border-violet-900">Post</button></center><br>
+        </form>
     </div>
+</div>
 
-    {% endblock %}
-</body>
-</html>
+{% endblock content %}

@@ -1,76 +1,65 @@
 {% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style></style>
-</head>
-<body>
-    {% block content %}
+{% block content %}
 
-    <div class="px-3 py-2 bg-blue-100 rounded-sm">
-        <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr>
-        <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
-        <p class="text-gray-800">City: {{listing.City}}</p>
-            {% if request.user.is_authenticated %}
-            <p class="text-gray-800">Address: {{listing.Location}}</p>
-            <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
-            <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>
-            <p class="text-gray-800">Facing Direction: {{listing.Face}}</p>
-            <p class="text-gray-800">Bedrooms: {{listing.Bedroom}}</p>
-            <p class="text-gray-800">Bathrooms: {{listing.Bathroom}}</p>
-            <p class="text-gray-800">Parking: {{listing.Parking}}</p>
-            <p class="text-gray-800">Amenities: {{listing.Amenities}}</p>
-            <p class="text-gray-800">Width of Road: {{listing.Road_Width}} feet</p>
-            <p class="text-gray-800">Type of Road: {{listing.Road_Type}}</p>
-            <br><p class="text-gray-800">Description: {{listing.Description}}</p><br>
-            <p class="text-gray-800">Owner number: {{listing.Contact_number}}</p>
-            <p class="text-gray-800">Owner E-Mail: {{listing.Contact_mail}}</p><br>
-            {% endif %}
-        <h1 class="text-2xl text-gray-800">Status: <strong>{{listing.is_sold|yesno:"Sold, Not Sold Yet"}}</strong></h1><br>
-        <p>Picture: <br><img src="{{ listing.Image.url }}" alt=""></p>
-        
-        {% if request.user.is_staff %}
-        <div class="mt-2 py-2 border-t border-gray-200">
-            <a href="/listings/{{ listing.id }}/edit/" class="text-blue-500">
-                Edit</a>
-            <a href="/listings/{{ listing.id }}/delete/" class="ml-3 text-blue-500">
-                Delete</a>
-        </div>
+<div class="px-3 py-2 bg-blue-100 rounded-sm">
+    <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr>
+    <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
+    <p class="text-gray-800">City: {{listing.City}}</p>
+        {% if request.user.is_authenticated %}
+        <p class="text-gray-800">Address: {{listing.Location}}</p>
+        <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
+        <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>
+        <p class="text-gray-800">Facing Direction: {{listing.Face}}</p>
+        <p class="text-gray-800">Bedrooms: {{listing.Bedroom}}</p>
+        <p class="text-gray-800">Bathrooms: {{listing.Bathroom}}</p>
+        <p class="text-gray-800">Parking: {{listing.Parking}}</p>
+        <p class="text-gray-800">Amenities: {{listing.Amenities}}</p>
+        <p class="text-gray-800">Width of Road: {{listing.Road_Width}} feet</p>
+        <p class="text-gray-800">Type of Road: {{listing.Road_Type}}</p>
+        <br><p class="text-gray-800">Description: {{listing.Description}}</p><br>
+        <p class="text-gray-800">Owner number: {{listing.Contact_number}}</p>
+        <p class="text-gray-800">Owner E-Mail: {{listing.Contact_mail}}</p><br>
         {% endif %}
-    </div><br>
-
-    <!-- like section hereon-->
-    <form action="{% url 'like_estate' listing.pk %}" method="post">
-        {% csrf_token %}
-        <button type="submit", name="listing_id", value="{{ listing.id }}", class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Like
-        </button> - {{ listing.likes.count }} Likes
-    </form>
-    <br>
+    <h1 class="text-2xl text-gray-800">Status: <strong>{{listing.is_sold|yesno:"Sold, Not Sold Yet"}}</strong></h1><br>
+    <p>Picture: <br><img src="{{ listing.Image.url }}" alt=""></p>
     
-    <!-- comment section hereon-->
-    <div class="px-3 py-2 bg-blue-100 rounded-sm">
-        {% if not listing.comments.all %}
-            <h3 class="text-2xl text-gray-900">No comments yet. Be the first to add one. 
-                <a href="{% url 'add_comment' listing.pk %}" class="text-blue-900">Add Comment</a></h3>
-        {% else %}
-            <h3 class="text-2xl text-gray-900">Comments</h3><hr><br>
-            <a href="{% url 'add_comment' listing.pk %}" class="text-blue-900">Add Comment</a><br><br>
-            {% for comment in listing.comments.all %}
-                <strong>
-                    {{ comment.name }} on {{ comment.date_added }}
-                </strong><br>
-                {{ comment.body }}
-                <br><br>
-            {% endfor %}
-        {% endif %}
+    {% if request.user.is_staff %}
+    <div class="mt-2 py-2 border-t border-gray-200">
+        <a href="/listings/{{ listing.id }}/edit/" class="text-blue-500">
+            Edit</a>
+        <a href="/listings/{{ listing.id }}/delete/" class="ml-3 text-blue-500">
+            Delete</a>
     </div>
+    {% endif %}
+</div><br>
 
-    {% endblock %}
-</body>
-</html>
+<!-- like section hereon-->
+<form action="{% url 'like_estate' listing.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit", name="listing_id", value="{{ listing.id }}", class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <!-- <img src="C:\Users\Dell\Desktop\RE\real_estate\media\like.png" border="0" /> -->
+        Like
+    </button><strong> - {{ listing.likes.count }} Likes</strong>
+</form>
+<br>
+
+<!-- comment section hereon-->
+<div class="px-3 py-2 bg-blue-100 rounded-sm">
+    {% if not listing.comments.all %}
+        <h3 class="text-2xl text-gray-900">No comments yet. Be the first to add one. 
+            <a href="{% url 'add_comment' listing.pk %}" class="text-blue-900">Add Comment</a></h3>
+    {% else %}
+        <h3 class="text-2xl text-gray-900">Comments</h3><hr><br>
+        <a href="{% url 'add_comment' listing.pk %}" class="text-blue-900">Add Comment</a><br><br>
+        {% for comment in listing.comments.all %}
+            <strong>
+                {{ comment.name }} on {{ comment.date_added }}
+            </strong><br>
+            {{ comment.body }}
+            <br><br>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock content %}
