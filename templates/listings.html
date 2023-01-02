@@ -47,9 +47,9 @@
             
             {% if request.user.is_staff %}
             <div class="mt-2 py-2 border-t border-gray-200">
-                <a href="/listings/{{ listing.id }}/edit/" class="text-blue-500">
+                <a href="/listings/{{ listing.id }}/edit/" class="other-buttons">
                     Edit</a>
-                <a href="/listings/{{ listing.id }}/delete/" class="ml-3 text-blue-500">
+                <a href="/listings/{{ listing.id }}/delete/" class="ml-3 other-buttons">
                     Delete</a>
             </div>
             {% endif %}

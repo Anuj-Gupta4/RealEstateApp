@@ -77,10 +77,10 @@
 </div>
 
 {% if not request.user.is_authenticated %}
-<h1><strong>Note: Please login in order to order to unlock the View Details button of the real estates below.</strong></h1>
+<h1><strong><small>Note: Please login in order to order to unlock the View Details button of the real estates below.</small></strong></h1>
 {% endif %}
 
-<br><hr><h1><strong>Results:</strong></h1>
+<br><h1><strong>Results:</strong></h1>
 <div class = "container">
     {% if listings %}
     {% for listing in listings %}
