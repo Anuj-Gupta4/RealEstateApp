@@ -86,14 +86,24 @@
     {% for listing in listings %}
     
     <div class="mt-2 px-3 py-2 bg-gray-100 rounded-sm">
-        <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3>
+        <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr><hr><hr>
+
         {% if listing.Image %}
         <img src="{{ listing.Image.url }}" alt="">
+
         {% endif %}
-        <br>
-        {% if request.user.is_authenticated %}
-        <center><a class="button" href="/listings/{{ listing.id }}/">View Details</a></center>
+        <hr><hr><hr><h2 class="text-2xl text-gray-900">Price: Rs. {{listing.Price}}</h2>
+        
+        {% if request.user.is_staff %}
+        <center><a href="/listings/{{ listing.id }}/" class="button">View Details</a></center>
+        <div class="mt-2 py-2 border-t border-gray-200">
+            <a href="/listings/{{ listing.id }}/edit/" class="text-blue-500">
+                Edit</a>
+            <a href="/listings/{{ listing.id }}/delete/" class="ml-3 text-blue-500">
+                Delete</a>
+        </div>
         {% endif %}
+    
     </div>
 
     {% endfor %}
