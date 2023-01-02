@@ -4,17 +4,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, FormView
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from .models import Listing, Comment
 from .forms import ListingForm, CommentForm
 import pandas as pd
 import joblib
 
+#load the machine learning model
 reloadModel = joblib.load('./models/pipeline1.pkl')
 
 # Create your views here.
+def LikeView(request, pk):
+    listing = get_object_or_404(Listing, id=request.POST.get('listing_id'))
+    listing.likes.add(request.user)
+    return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
 
 class CustomLoginView(LoginView):
     template_name='login.html'

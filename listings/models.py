@@ -23,6 +23,7 @@ class Listing(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
     is_sold = models.BooleanField(default=False)
     Description = models.CharField(max_length=1000, default="Please describe your estate here. You may also justify the price of your estate here.")
+    likes = models.ManyToManyField(User, related_name='estate')
 
     def __str__(self):
         return self.Title

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style></style>
 </head>
 <body>
     {% block content %}
@@ -43,6 +44,16 @@
         {% endif %}
     </div><br>
 
+    <!-- like section hereon-->
+    <form action="{% url 'like_estate' listing.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit", name="listing_id", value="{{ listing.id }}", class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Like
+        </button> - {{ listing.likes.count }} Likes
+    </form>
+    <br>
+    
+    <!-- comment section hereon-->
     <div class="px-3 py-2 bg-blue-100 rounded-sm">
         {% if not listing.comments.all %}
             <h3 class="text-2xl text-gray-900">No comments yet. Be the first to add one. 

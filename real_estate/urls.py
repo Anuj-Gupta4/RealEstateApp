@@ -15,6 +15,7 @@ from listings.views import (
     listing_delete,
     listing_search,
     user_specific_listings,
+    LikeView,
     add_comment
     )
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('listings/<pk>/edit/', listing_update, name='listing_update'),
     path('listings/<pk>/delete/', listing_delete, name='listing_delete'),
     path('listing_search', listing_search, name='listing_search'),
+    path('like/<int:pk>', LikeView, name='like_estate'),
     path('listings/<pk>/comment/', add_comment.as_view(), name='add_comment'),
 ]
 
