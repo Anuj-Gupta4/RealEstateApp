@@ -92,9 +92,19 @@
 <form action="{% url 'like_estate' listing.pk %}" method="post">
     {% csrf_token %}
     <strong>  {{ listing.likes.count }} Likes</strong><br>
-    <button type="submit", name="listing_id", value="{{ listing.id }}", class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
-        <img src="\media\facebook-like.png" width="30" height="30" border="0" />
-    </button>
+    {% if user.is_authenticated %}
+        {% if liked %}
+            <button type="submit", name="listing_id", value="{{ listing.id }}", class="bg-red-500 hover:bg-red-700 text-white font-bold py-1.5 px-2.5 rounded">
+                <img src="\media\dislike.png" width="25" height="25" border="0" />
+            </button>    
+        {% else %}
+            <button type="submit", name="listing_id", value="{{ listing.id }}", class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                <img src="\media\facebook-like.png" width="30" height="30" border="0" />
+            </button>
+        {% endif %}
+    {% else %}
+        <small>Login to like</small>
+    {% endif %}
 </form>
 <br>
 

@@ -5,7 +5,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
+from django.views import generic
 from django.views.generic.edit import CreateView, FormView
+from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from .models import Listing, Comment
@@ -19,7 +21,14 @@ reloadModel = joblib.load('./models/pipeline1.pkl')
 # Create your views here.
 def LikeView(request, pk):
     listing = get_object_or_404(Listing, id=request.POST.get('listing_id'))
-    listing.likes.add(request.user)
+    liked = False
+    if listing.likes.filter(id=request.user.id).exists():
+        listing.likes.remove(request.user)
+        liked=False
+    else:
+        listing.likes.add(request.user)
+        liked=True
+        
     return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
 
 class CustomLoginView(LoginView):
@@ -125,13 +134,34 @@ class listing_create(LoginRequiredMixin, CreateView):
         print(form.instance.user)
         return super(listing_create,self).form_valid(form)
 
-@login_required
-def listing_retrieve(request,pk):
-    listing= Listing.objects.get(id=pk)
-    context={
-        "listing":listing
-    }
-    return render(request,"listing.html",context)
+# @login_required
+# def listing_retrieve(request,pk):
+#     listing= Listing.objects.get(id=pk)
+#     # stuff=get_object_or_404(Listing, id=request.kwargs['pk'])
+#     # liked=False
+#     # if stuff.likes.filter(id=request.user.id).exists():
+#     #     liked = True
+#     context={
+#         "listing":listing
+#         # "listing":listing, "liked":liked
+#     }
+#     return render(request,"listing.html",context)
+
+class ListingRetrieveView(LoginRequiredMixin, DetailView):
+    model = Listing
+    template_name = 'listing.html'
+
+    def get_context_data(self, *args, **kwargs):
+        listing= Listing.objects.all()
+        # print(kwargs)
+        context=super(ListingRetrieveView, self).get_context_data(**kwargs)
+        # print(context)
+        stuff=get_object_or_404(Listing, id=self.kwargs['pk'])
+        liked=False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        context["liked"]=liked
+        return context
 
 @login_required
 def listing_update(request, pk):

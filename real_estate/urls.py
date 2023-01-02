@@ -9,13 +9,14 @@ from listings.views import (
     LogoutView,
     predict,
     listing_list, 
-    listing_retrieve, 
+    # listing_retrieve, 
     listing_create, 
     listing_update, 
     listing_delete,
     listing_search,
     user_specific_listings,
     LikeView,
+    ListingRetrieveView,
     add_comment
     )
 
@@ -27,7 +28,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('predict', predict, name='predict'),
     path('listings/', listing_list, name='listing_list'),
-    path('listings/<pk>/', listing_retrieve, name='listing_retrieve'),
+    # path('listings/<pk>/', listing_retrieve, name='listing_retrieve'),
+    path('listings/<pk>/', ListingRetrieveView.as_view(), name='listing_retrieve'),
     path('user_specific_listings/', user_specific_listings, name='user_specific_listings'),
     path('add-listing', listing_create.as_view(), name='listing_create'),
     path('listings/<pk>/edit/', listing_update, name='listing_update'),
