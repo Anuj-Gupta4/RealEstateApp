@@ -8,8 +8,40 @@
 <div class="card-body">
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_table }}
         <br>
+        <div class="control-group">
+            <div class="controls">
+                <input class="form-control" type="text" id="id_username" name="username"  placeholder="Enter Username">
+            </div>
+        </div><br>
+        <div class="control-group">
+            <div class="controls">
+                <input class="form-control" type="text" id="id_first_name" name="first_name"  placeholder="Enter first_name">
+            </div>
+        </div><br>
+        <div class="control-group">
+            <div class="controls">
+                <input class="form-control" type="text" name="last_name" id="id_last_name" placeholder="Enter last_name">
+            </div>
+        </div><br>
+        <div class="control-group">
+            <div class="controls">
+                <input class="form-control" type="email" name="email" id="id_email" placeholder="Enter email">
+            </div>
+        </div><br>
+        <div class="control-group">
+            <div class="controls">
+                <input class="form-control" type="password" name="password1" id="id_password1" placeholder="Enter Password">
+            </div>
+        </div><br>
+        <div class="control-group">
+            <div class="controls">
+                <input class="form-control" type="password" name="password2" id="id_password2" placeholder="Enter Password Again">
+            </div>
+        </div>
+
+        <!-- {{ form.as_table }} -->
+        
         <br><input type="submit" class="flex items-center px-2 py-1 text-white bg-blue-600 hover:bg-blue-700" value="Register"><br><hr>
     </form><br>
 
