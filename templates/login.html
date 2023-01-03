@@ -9,10 +9,10 @@
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}<br>
-    <input class="flex items-center px-2 py-1 text-white bg-pink-300 hover:bg-pink-400" type="submit"value="Login">
+    <input class="flex items-center px-2 py-1 text-white bg-blue-600 hover:bg-blue-700" type="submit"value="Login">
 </form>
 <br><hr><br>
-<p>Don't have an account?<a class = "hover:bg-pink-400 bg-pink-300 px-2 py-1 text-white" href="{% url 'register' %}">Register</a></p>
+<p>Don't have an account?&nbsp&nbsp<a class = "hover:bg-blue-700 bg-blue-600 px-2 py-1 text-white" href="{% url 'register' %}">Register</a></p>
 </div>
 
 {% endblock content %}
