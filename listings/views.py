@@ -2,7 +2,6 @@ from multiprocessing import context
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -11,7 +10,7 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from .models import Listing, Comment
-from .forms import ListingForm, CommentForm
+from .forms import ListingForm, CommentForm, SignUpForm
 import pandas as pd
 import joblib
 
@@ -41,7 +40,7 @@ class CustomLoginView(LoginView):
 
 class RegisterPage(FormView):
     template_name='register.html'
-    form_class = UserCreationForm
+    form_class = SignUpForm
     redirect_authenticated_user=True
     success_url = reverse_lazy('listing_list')
 

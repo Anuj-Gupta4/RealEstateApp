@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import Listing, Comment
 
 class ListingForm(forms.ModelForm):
@@ -72,3 +74,21 @@ class CommentForm(forms.ModelForm):
             'body':forms.Textarea(attrs={'class':'form-control'}),
         }
         
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
+    # email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}), label='')
+    # first_name = forms.CharField(max_length=100, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Enter name'}))
+    first_name = forms.CharField(max_length=100, widget=forms.EmailInput(attrs={'class':'form-control'}))
+    last_name = forms.CharField(max_length=100, widget=forms.EmailInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+
+        for fieldname in ['username', 'password1', 'password2']:
+            # self.fields[fieldname].label = ''
+            self.fields[fieldname].help_text = None
+            self.fields[fieldname].widget.attrs['class'] = 'form-control'
