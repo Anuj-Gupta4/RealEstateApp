@@ -26,8 +26,16 @@ SECRET_KEY = 'django-insecure-!-u9g$f1t7o4cakzgp4j^f_mt3j@185oiizn@3$c1r&wzpznss
 DEBUG = True
 
 ALLOWED_HOSTS = []
+SITE_ID = 1
 
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    ]
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'listings',
-    'django_filters'
+    'django_filters',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -64,10 +77,24 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '09a0030a1d89df55551f',
+            'secret': '5bf8a2c9058c20d9209a3629c6b74630f94728cb',
+            'key': ''
+        }
+    }
+}
 
 WSGI_APPLICATION = 'real_estate.wsgi.application'
 
@@ -114,6 +141,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'listing_list'
 
 
 # Static files (CSS, JavaScript, Images)

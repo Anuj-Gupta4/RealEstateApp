@@ -55,7 +55,7 @@ class RegisterPage(FormView):
             return redirect('listing_list')
         return super(RegisterPage, self).get(*args, **kwargs)
 
-def index(request):
+def prediction(request):
     temp={}
     context= {'temp':temp}
     return render(request, 'base.html',context)

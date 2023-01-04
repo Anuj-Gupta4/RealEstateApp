@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from listings.views import (
-    index,
+    # index,
+    prediction,
     CustomLoginView,
     RegisterPage,
     LogoutView,
@@ -22,13 +23,13 @@ from listings.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
+    path('prediction/', prediction, name='prediction'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('register/', RegisterPage.as_view(), name='register'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
-    path('predict', predict, name='predict'),
-    path('listings/', listing_list, name='listing_list'),
-    # path('listings/<pk>/', listing_retrieve, name='listing_retrieve'),
+    path('prediction/predict', predict, name='predict'),
+    path('', listing_list, name='listing_list'),
+    path('accounts/', include('allauth.urls')),
     path('listings/<pk>/', ListingRetrieveView.as_view(), name='listing_retrieve'),
     path('user_specific_listings/', user_specific_listings, name='user_specific_listings'),
     path('add-listing', listing_create.as_view(), name='listing_create'),
