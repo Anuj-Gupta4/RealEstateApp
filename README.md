@@ -6,13 +6,13 @@ and estate price prediction, which is a machine learning application. The predic
 trained using machine learning algorithms using Nepali housing dataset.
 
 # Login:
-![image](https://user-images.githubusercontent.com/84966248/210616299-70a49085-3228-476e-a1d8-5556437113ee.png)
+![image](https://user-images.githubusercontent.com/84966248/210617134-f2c4908a-bf03-4cc5-9f15-6123c090b619.png)
 
-#Login with Github
+# Login with Github
 ![image](https://user-images.githubusercontent.com/84966248/210616006-f173e7aa-f700-4382-bb8b-a7094f064992.png)
 
 # Register:
-![image](https://user-images.githubusercontent.com/84966248/210415879-54b8301e-6a1d-4b6f-98b5-cc9fd1ce4c77.png)
+![image](https://user-images.githubusercontent.com/84966248/210617286-64801cb3-7003-4361-8495-eb850880abe2.png)
 
 # Demo for Prediction:
 ![image](https://user-images.githubusercontent.com/84966248/205440624-f4e3772d-c822-4d9b-83fd-d932c4fa672c.png)
@@ -22,6 +22,12 @@ trained using machine learning algorithms using Nepali housing dataset.
 
 # Estate list:
 ![image](https://user-images.githubusercontent.com/84966248/205440726-94882b47-3bfa-48ae-b90e-ea8eb17a3ffe.png)
+
+# Estate's Details
+![image](https://user-images.githubusercontent.com/84966248/210617548-7ad18613-66bf-46d4-9c65-1407b1c7dc64.png)
+
+
+![image](https://user-images.githubusercontent.com/84966248/210617710-d6045962-f7ca-4fec-9256-793c83d4ea14.png)
 
 # Search function:
 ![image](https://user-images.githubusercontent.com/84966248/205440749-6e1f395a-67c2-419e-8214-7f61655c206e.png)
