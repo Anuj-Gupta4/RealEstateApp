@@ -6,12 +6,14 @@ and estate price prediction, which is a machine learning application. The predic
 trained using machine learning algorithms using Nepali housing dataset.
 
 # Login:
-![image](https://user-images.githubusercontent.com/84966248/210415832-bc117f70-1852-43da-8db1-844aac6f1e69.png)
+![image](https://user-images.githubusercontent.com/84966248/210616299-70a49085-3228-476e-a1d8-5556437113ee.png)
+
+#Login with Github
+![image](https://user-images.githubusercontent.com/84966248/210616006-f173e7aa-f700-4382-bb8b-a7094f064992.png)
 
 # Register:
 ![image](https://user-images.githubusercontent.com/84966248/210415879-54b8301e-6a1d-4b6f-98b5-cc9fd1ce4c77.png)
 
-undefined
 # Demo for Prediction:
 ![image](https://user-images.githubusercontent.com/84966248/205440624-f4e3772d-c822-4d9b-83fd-d932c4fa672c.png)
 
