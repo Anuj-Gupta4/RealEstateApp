@@ -117,7 +117,7 @@ class add_comment(CreateView):
     def form_valid(self,form):
         form.instance.listing_id=self.kwargs['pk']
         return super().form_valid(form)
-        
+
     success_url = reverse_lazy('listing_list')
 
 #CRUD -Create, Retrieve, Update, Delete
@@ -202,6 +202,7 @@ def user_specific_listings(request):
 # @login_required
 def listing_search(request):
     queryset_list=Listing.objects.all()
+    # val = False
 
     # Title
     if 'Title' in request.GET:
@@ -214,7 +215,6 @@ def listing_search(request):
     #City
     if 'City' in request.GET:
         city = request.GET['City']
-        print(city)
         if city:
             queryset_list=queryset_list.filter(City__iexact = city)
     else:
@@ -274,10 +274,26 @@ def listing_search(request):
             queryset_list=queryset_list.filter(Price__lte=Max_Price)
     else:
         Max_Price = ''
+
+    #show on sale only
+    # if 'is_sold' in request.GET:
+    #     is_sold = request.GET['is_sold']
+    #     # print(is_sold)
+    #     # print(type(is_sold))
+    #     # if is_sold=="False":
+    #     #     val = True
+    #     # print(val)
+    #     queryset_list = queryset_list.filter(is_sold = False)
+    # else:
+    #     is_sold = False
                 
+    # context={
+    #     'listings':queryset_list, 'Min_Price':Min_Price,'Max_Price':Max_Price, 'Area':Area, 'Floors':Floors, 'Bathroom':Bathroom, 
+    #     'Bedroom':Bedroom, 'Face':Face, 'City': city, 'Title': Title, 'is_sold': is_sold,
+
     context={
-        'listings':queryset_list, 'Min_Price':Min_Price,'Max_Price':Max_Price, 'Area':Area, 'Floors':Floors, 'Bathroom':Bathroom, 'Bedroom':Bedroom,
-        'Face':Face, 'City': city, 'Title': Title
+        'listings':queryset_list, 'Min_Price':Min_Price,'Max_Price':Max_Price, 'Area':Area, 'Floors':Floors, 'Bathroom':Bathroom, 
+        'Bedroom':Bedroom, 'Face':Face, 'City': city, 'Title': Title,
     }
 
     return render(request, "listing_search.html", context)
