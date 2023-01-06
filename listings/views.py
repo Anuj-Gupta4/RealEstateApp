@@ -117,7 +117,7 @@ class add_comment(CreateView):
     def form_valid(self,form):
         form.instance.listing_id=self.kwargs['pk']
         return super().form_valid(form)
-
+        
     success_url = reverse_lazy('listing_list')
 
 #CRUD -Create, Retrieve, Update, Delete
@@ -172,7 +172,7 @@ def listing_update(request, pk):
             form.save()
             # context["success"] = True
             # context["successmsg"] = "Details successfully updated"
-            return redirect("/user_specific_listings")
+            return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
     else:
         form = ListingForm(instance=listing)
 
