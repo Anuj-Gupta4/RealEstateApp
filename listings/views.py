@@ -5,11 +5,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
 from django.views import generic
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
-from .models import Listing, Comment
+from .models import Listing, Comment, ListingImage
 from .forms import ListingForm, CommentForm, SignUpForm
 import pandas as pd
 import joblib
@@ -18,18 +18,6 @@ import joblib
 reloadModel = joblib.load('./models/pipeline1.pkl')
 
 # Create your views here.
-def LikeView(request, pk):
-    listing = get_object_or_404(Listing, id=request.POST.get('listing_id'))
-    liked = False
-    if listing.likes.filter(id=request.user.id).exists():
-        listing.likes.remove(request.user)
-        liked=False
-    else:
-        listing.likes.add(request.user)
-        liked=True
-        
-    return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
-
 class CustomLoginView(LoginView):
     template_name='login.html'
     fields = '__all___'
@@ -94,32 +82,6 @@ def listing_list(request):
     }
     return render(request, "listings.html", context)
 
-
-# @login_required
-# def listing_create(request):
-#     form = ListingForm()
-#     if request.method == "POST":
-#         form = ListingForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("listings/")
-
-#     context = {
-#         "form":form
-#     }
-#     return render(request, "listing_create.html", context)
-
-class add_comment(CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'add_comment.html'
-
-    def form_valid(self,form):
-        form.instance.listing_id=self.kwargs['pk']
-        return super().form_valid(form)
-
-    success_url = reverse_lazy('listing_list')
-
 #CRUD -Create, Retrieve, Update, Delete
 class listing_create(LoginRequiredMixin, CreateView):
     model = Listing
@@ -128,23 +90,22 @@ class listing_create(LoginRequiredMixin, CreateView):
     # 'Road_Type', 'Build_Area', 'Amenities', 'Contact_number', 'Contact_mail', 'Image']
     template_name='listing_create.html'
     success_url=reverse_lazy('user_specific_listings')
+
     def form_valid(self,form):
         form.instance.user=self.request.user
         print(form.instance.user)
-        return super(listing_create,self).form_valid(form)
+        # Get the images from the request
+        images = self.request.FILES.getlist('Image')
 
-# @login_required
-# def listing_retrieve(request,pk):
-#     listing= Listing.objects.get(id=pk)
-#     # stuff=get_object_or_404(Listing, id=request.kwargs['pk'])
-#     # liked=False
-#     # if stuff.likes.filter(id=request.user.id).exists():
-#     #     liked = True
-#     context={
-#         "listing":listing
-#         # "listing":listing, "liked":liked
-#     }
-#     return render(request,"listing.html",context)
+        # Save the form and create a new instance of the Listing model
+        response = super().form_valid(form)
+        print(response)
+
+        # Process the images and associate them with the listing
+        for image in images:
+            print(image)
+            ListingImage.objects.create(listing=self.object, image=image)
+        return response
 
 class ListingRetrieveView(LoginRequiredMixin, DetailView):
     model = Listing
@@ -160,26 +121,29 @@ class ListingRetrieveView(LoginRequiredMixin, DetailView):
         if stuff.likes.filter(id=self.request.user.id).exists():
             liked = True
         context["liked"]=liked
+        context['images'] = ListingImage.objects.filter(listing=self.object)
         return context
 
-@login_required
-def listing_update(request, pk):
-    listing= Listing.objects.get(id=pk)
+class listing_update(LoginRequiredMixin, UpdateView):
+    model = Listing
+    form_class = ListingForm
+    template_name = 'listing_update.html'
+    success_url = reverse_lazy('user_specific_listings')
 
-    if request.method == "POST":
-        form = ListingForm(request.POST, instance=listing, files = request.FILES)
-        if form.is_valid():
-            form.save()
-            # context["success"] = True
-            # context["successmsg"] = "Details successfully updated"
-            return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
-    else:
-        form = ListingForm(instance=listing)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        # Get the images from the request
+        images = self.request.FILES.getlist('Image')
 
-    context = {
-        "form":form
-    }
-    return render(request, "listing_update.html", context)
+        # Save the form and update the instance of the Listing model
+        response = super().form_valid(form)
+
+        # Process the images and associate them with the listing
+        ListingImage.objects.filter(listing=self.object).delete()
+        for image in images:
+            ListingImage.objects.create(listing=self.object, image=image)
+
+        return response
 
 @login_required
 def listing_delete(request, pk):
@@ -297,3 +261,73 @@ def listing_search(request):
     }
 
     return render(request, "listing_search.html", context)
+
+def LikeView(request, pk):
+    listing = get_object_or_404(Listing, id=request.POST.get('listing_id'))
+    liked = False
+    if listing.likes.filter(id=request.user.id).exists():
+        listing.likes.remove(request.user)
+        liked=False
+    else:
+        listing.likes.add(request.user)
+        liked=True
+        
+    return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
+
+class add_comment(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+
+    def form_valid(self,form):
+        form.instance.listing_id=self.kwargs['pk']
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('listing_list')
+
+
+# @login_required
+# def listing_create(request):
+#     form = ListingForm()
+#     if request.method == "POST":
+#         form = ListingForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("listings/")
+
+#     context = {
+#         "form":form
+#     }
+#     return render(request, "listing_create.html", context)
+
+# @login_required
+# def listing_update(request, pk):
+#     listing= Listing.objects.get(id=pk)
+
+#     if request.method == "POST":
+#         form = ListingForm(request.POST, instance=listing, files = request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             # context["success"] = True
+#             # context["successmsg"] = "Details successfully updated"
+#             return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
+#     else:
+#         form = ListingForm(instance=listing)
+
+#     context = {
+#         "form":form
+#     }
+#     return render(request, "listing_update.html", context)
+
+# @login_required
+# def listing_retrieve(request,pk):
+#     listing= Listing.objects.get(id=pk)
+#     # stuff=get_object_or_404(Listing, id=request.kwargs['pk'])
+#     # liked=False
+#     # if stuff.likes.filter(id=request.user.id).exists():
+#     #     liked = True
+#     context={
+#         "listing":listing
+#         # "listing":listing, "liked":liked
+#     }
+#     return render(request,"listing.html",context)
