@@ -41,5 +41,5 @@ urlpatterns = [
     path('listings/<pk>/comment/', add_comment.as_view(), name='add_comment'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+# if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
