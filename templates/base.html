@@ -157,30 +157,34 @@
 <body>
     <div id="navbar">
       <ul>
+        {% if not request.user.is_authenticated %}
         <li>
           <a href="{% url 'login' %}">Login</a>
         </li>
         <li>
           <a href="{% url 'register' %}">Register</a>
         </li>
-        <li class="nav-item active">
+        {% endif %}
+        <li>
           <a href="{% url 'prediction' %}">Predict</a>
         </li>
         <li>
           <a href="{% url 'listing_search' %}">Search</a>
         </li>
         <li>
-          <a href="{% url 'listing_list' %}">View all listings</a>
+          <a href="{% url 'listing_list' %}">Listings</a>
         </li>
         <li>
           <a href="{% url 'listing_create' %}">Add a listing</a>
         </li>
         <li>
-          <a href="{% url 'user_specific_listings' %}">My listings</a>
+          <a href="{% url 'user_specific_listings' %}">My Listings</a>
         </li>
+        {% if request.user.is_authenticated %}
         <li>
           <a href="{% url 'logout' %}">Logout</a>
         </li>
+        {% endif %}
       </ul>
     </div>
     <!-- <div class="mx-auto max-w-5xl px-4 py-4"> -->

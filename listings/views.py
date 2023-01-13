@@ -112,15 +112,11 @@ class ListingRetrieveView(LoginRequiredMixin, DetailView):
     template_name = 'listing.html'
 
     def get_context_data(self, *args, **kwargs):
-        listing= Listing.objects.all()
-        # print(kwargs)
-        context=super(ListingRetrieveView, self).get_context_data(**kwargs)
-        # print(context)
-        stuff=get_object_or_404(Listing, id=self.kwargs['pk'])
-        liked=False
-        if stuff.likes.filter(id=self.request.user.id).exists():
+        context = super().get_context_data(**kwargs)
+        liked = False
+        if self.object.likes.filter(id=self.request.user.id).exists():
             liked = True
-        context["liked"]=liked
+        context["liked"] = liked
         context['images'] = ListingImage.objects.filter(listing=self.object)
         return context
 

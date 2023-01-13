@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 # Create your models here.
 class Listing(models.Model):
     Title = models.CharField(max_length=30, default='House on Sale')
+    slug = models.CharField(max_length=100, null=True, blank=True)
     Location = models.CharField(max_length=30, default='Kalanki')
     City = models.CharField(max_length=30, default='Kathmandu')
     Price = models.IntegerField(default=9999999)
@@ -27,6 +29,11 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.Title
+    
+    def save(self, *args, **kwargs):
+        if self.slug is None or self.slug!=slugify(self.Title):
+            self.slug = slugify(self.Title)
+        return super().save(*args, **kwargs)
 
 class Comment(models.Model):
     listing = models.ForeignKey(Listing, related_name = "comments", on_delete = models.CASCADE)

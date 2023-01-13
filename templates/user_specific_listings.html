@@ -22,7 +22,7 @@
                 {% if listing.Image %}
                 <img src="{{ listing.Image.url }}" alt="">
                 {% endif %}
-                <br><center><a href="/listings/{{ listing.id }}/" class="button">View Details</a></center>
+                <br><center><a href="/listings/{{ listing.slug }}/" class="button">View Details</a></center>
             </div>
             <div>
                 {% if request.user.is_authenticated %}

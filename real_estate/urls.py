@@ -31,7 +31,7 @@ urlpatterns = [
     path('prediction/predict', predict, name='predict'),
     path('', listing_list, name='listing_list'),
     path('accounts/', include('allauth.urls')),
-    path('listings/<pk>/', ListingRetrieveView.as_view(), name='listing_retrieve'),
+    path('listings/<slug:slug>/', ListingRetrieveView.as_view(), name='listing_retrieve'),
     path('user_specific_listings/', user_specific_listings, name='user_specific_listings'),
     path('add-listing', listing_create.as_view(), name='listing_create'),
     path('listings/<pk>/edit/', listing_update.as_view(), name='listing_update'),
