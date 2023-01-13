@@ -5,6 +5,10 @@ Real Estate Price Prediction is a fully fledged E-commerce Application built wit
 and estate price prediction, which is a machine learning application. The prediction models are
 trained using machine learning algorithms using Nepali housing dataset.
 
+# Live Demo:
+Run the app using following link:
+https://real-estate-webapp.onrender.com/
+
 # Login:
 ![image](https://user-images.githubusercontent.com/84966248/210617134-f2c4908a-bf03-4cc5-9f15-6123c090b619.png)
 
