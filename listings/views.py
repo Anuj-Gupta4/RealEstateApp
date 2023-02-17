@@ -10,9 +10,11 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from .models import Listing, Comment, ListingImage
-from .forms import ListingForm, CommentForm, SignUpForm
+from .forms import ListingForm, CommentForm, SignUpForm, EmailForm
 import pandas as pd
 import joblib
+from django.core.mail import send_mail
+from django.contrib import messages
 
 #load the machine learning model
 reloadModel = joblib.load('./models/pipeline1.pkl')
@@ -93,13 +95,11 @@ class listing_create(LoginRequiredMixin, CreateView):
 
     def form_valid(self,form):
         form.instance.user=self.request.user
-        print(form.instance.user)
         # Get the images from the request
         images = self.request.FILES.getlist('Image')
 
         # Save the form and create a new instance of the Listing model
         response = super().form_valid(form)
-        print(response)
 
         # Process the images and associate them with the listing
         for image in images:
@@ -118,7 +118,25 @@ class ListingRetrieveView(LoginRequiredMixin, DetailView):
             liked = True
         context["liked"] = liked
         context['images'] = ListingImage.objects.filter(listing=self.object)
+        context['form'] = EmailForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        listing = self.get_object()
+        slug = listing.slug
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            from_email = 'anujgupta.4388@gmail.com'
+            recipient_list = [listing.Contact_mail]
+            send_mail(subject, message, from_email, recipient_list)
+            messages.success(request, 'Mail sent successfully!')
+            return HttpResponseRedirect(reverse('listing_retrieve', args=[str(slug)]))
+        else:
+            context = self.get_context_data(**kwargs)
+            context['form'] = form
+            return self.render_to_response(context)
 
 class listing_update(LoginRequiredMixin, UpdateView):
     model = Listing
@@ -260,6 +278,7 @@ def listing_search(request):
 
 def LikeView(request, pk):
     listing = get_object_or_404(Listing, id=request.POST.get('listing_id'))
+    slug = listing.slug
     liked = False
     if listing.likes.filter(id=request.user.id).exists():
         listing.likes.remove(request.user)
@@ -268,7 +287,7 @@ def LikeView(request, pk):
         listing.likes.add(request.user)
         liked=True
         
-    return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
+    return HttpResponseRedirect(reverse('listing_retrieve', args=[str(slug)]))
 
 class add_comment(CreateView):
     model = Comment
@@ -279,7 +298,7 @@ class add_comment(CreateView):
         form.instance.listing_id=self.kwargs['pk']
         return super().form_valid(form)
 
-    success_url = reverse_lazy('listing_list')
+    success_url = reverse_lazy('user_specific_listings')
 
 
 # @login_required

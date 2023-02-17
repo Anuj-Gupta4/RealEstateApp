@@ -12,9 +12,18 @@
 <body>
 
 {% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success text-center" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
 
 <div class="px-3 py-2 bg-blue-100 rounded-sm">
-    <h3 class="text-3xl text-gray-900">{{ listing.Title }}</h3><hr>
+    <h3 class="text-3xl text-gray-900 text-center">{{ listing.Title }}</h3><hr>
     <!-- <p><img src="{{ listing.Image.url }}" alt=""></p><br> -->
     <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
     <p class="text-gray-800">City: {{listing.City}}</p>
@@ -79,6 +88,20 @@
     {% endif %}
 </div><br>
 
+<!--Email form-->
+<div class="px-3 py-2 bg-blue-100 rounded-sm">
+    <h3 class="text-3xl text-gray-900 text-center">Contact Poster</h3><hr>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <p class="text-center">
+            <button type="submit" class="button">Send Email</button>
+        </p>
+    </form>
+</div>
+
+<br>
 <!-- like section hereon-->
 <form action="{% url 'like_estate' listing.pk %}" method="post">
     {% csrf_token %}

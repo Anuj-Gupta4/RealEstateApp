@@ -58,7 +58,7 @@ class ListingForm(forms.ModelForm):
             'Image':forms.ClearableFileInput(attrs={'class':'form-control'}),
             'is_sold':forms.CheckboxInput(attrs={'class':'w-8 h-8'}),
         }
-        
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -86,6 +86,10 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
 
-        for fieldname in ['username', 'password1', 'password2']:
-            self.fields[fieldname].help_text = None
+        # for fieldname in ['username', 'password1', 'password2']:
+        #     self.fields[fieldname].help_text = None
             # self.fields[fieldname].widget.attrs['class'] = 'form-control'
+
+class EmailForm(forms.Form):
+    subject = forms.CharField(label='Subject', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    message = forms.CharField(label='Message', widget=forms.Textarea(attrs={'class': 'form-control'}))
