@@ -161,4 +161,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'anujgupta.4388@gmail.com' # your email address
-EMAIL_HOST_PASSWORD = 'ocbqlwmtqzvnpolh' # your email password
+EMAIL_HOST_PASSWORD = '' # your email password
