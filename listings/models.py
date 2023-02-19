@@ -5,6 +5,8 @@ from django.utils.text import slugify
 # Create your models here.
 class Listing(models.Model):
     Title = models.CharField(max_length=30, default='House on Sale')
+    Owner = models.CharField(max_length=30, default='Anuj')
+    Age = models.IntegerField(default=10)
     slug = models.CharField(max_length=100, null=True, blank=True)
     Location = models.CharField(max_length=30, default='Kalanki')
     City = models.CharField(max_length=30, default='Kathmandu')
@@ -40,9 +42,6 @@ class Comment(models.Model):
     name = models.CharField(max_length=100, default="Anonymous User")
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-
-    # def sample_view(request):
-    #     name = request.user
 
     def __str__(self):
         return '%s - %s' % (self.listing.Title, self.name)

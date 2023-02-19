@@ -28,6 +28,8 @@
     <p class="text-gray-900">Price: Rs. {{listing.Price}}</p>
     <p class="text-gray-800">City: {{listing.City}}</p>
         {% if request.user.is_authenticated %}
+        <p class="text-gray-800">Owner: {{listing.Owner}}</p>
+        <p class="text-gray-800">Age: {{listing.Age}}</p>
         <p class="text-gray-800">Address: {{listing.Location}}</p>
         <p class="text-gray-800">House Area: {{listing.Area}} sq. ft</p>
         <p class="text-gray-800">Total Area: {{listing.Build_Area}} sq. ft</p>

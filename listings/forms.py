@@ -7,6 +7,8 @@ class ListingForm(forms.ModelForm):
     class Meta:
         model = Listing
         fields = ["Title", 
+        "Owner",
+        "Age",
         "Location", 
         "City", 
         "Price", 
@@ -39,6 +41,8 @@ class ListingForm(forms.ModelForm):
         }
         widgets = {
             'Title':forms.TextInput(attrs={'class':'form-control'}),
+            'Owner':forms.TextInput(attrs={'class':'form-control'}),
+            'Age':forms.NumberInput(attrs={'class':'form-control'}),
             'Location':forms.TextInput(attrs={'class':'form-control'}),
             'City':forms.TextInput(attrs={'class':'form-control'}), 
             'Price':forms.NumberInput(attrs={'class':'form-control'}), 
@@ -75,9 +79,12 @@ class CommentForm(forms.ModelForm):
         }
         
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
