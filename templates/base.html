@@ -13,6 +13,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
     <style>
+      /* img{
+        height: 50% !important;
+        width: 50% !important;
+      } */
+
       .button {
         display: inline-block;
         width: 100px;
@@ -217,8 +222,9 @@
     <form method="post" action="predict">
         {% csrf_token %}
           <div class="form-group">
+            Select City:
             <select class="form-control chosenn" name="City" required="required">
-              <option hidden value="" disabled selected>Select City</option>
+              <option hidden value="" disabled selected></option>
               <option>Bhaktapur</option>
               <option>Chitwan</option>
               <option>Kathmandu</option>
@@ -229,24 +235,29 @@
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter no. of Bedroom" name="Bedroom" id="Bedroom" class="form-control" required>
+            Enter no. of Bedrooms
+            <input type="number" placeholder="" name="Bedroom" id="Bedroom" class="form-control" required>
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter no. of Bathroom" name="Bathroom" id="Bathroom" class="form-control" required>
+            Enter no. of Bathrooms
+            <input type="number" placeholder="" name="Bathroom" id="Bathroom" class="form-control" required>
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter no. of Floors" name="Floors" id="Floors" class="form-control" required>
+            Enter no. of Floors
+            <input type="number" placeholder="" name="Floors" id="Floors" class="form-control" required>
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter no. of Parking" name="Parking" id="Parking" class="form-control" required>
+            Enter no. of Parking
+            <input type="number" placeholder="" name="Parking" id="Parking" class="form-control" required>
           </div><br>
     
           <div class="form-group">
+            Select Face
             <select class="form-control" name="Face" required="required">
-            <option hidden value="" disabled selected>Select Face</option>
+            <option hidden value="" disabled selected></option>
             <option>East</option>
             <option>North</option>
             <option>North East</option>
@@ -259,16 +270,19 @@
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter Area" name="Area" id="Area" class="form-control" required>
+            Enter Area in sq. feet
+            <input type="number" placeholder="" name="Area" id="Area" class="form-control" required>
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter Road Width" name="Road_Width" id="Road_Width" class="form-control" required>
+            Enter Road Width in feet
+            <input type="number" placeholder="" name="Road_Width" id="Road_Width" class="form-control" required>
           </div><br>
     
           <div class="form-group">
+            Select Road Type
             <select class="form-control" name="Road_Type" required="required">
-            <option hidden value="" disabled selected>Select Road_Type</option>
+            <option hidden value="" disabled selected></option>
             <option>Alley</option>
             <option>Blacktopped</option>
             <option>Concrete</option>
@@ -280,11 +294,13 @@
           </div><br>
 
           <div class="form-group">
-            <input type="number" placeholder="Enter Build Area" name="Build_Area" id="Build_Area" class="form-control" required>
+            Enter Build Area in sq. feet
+            <input type="number" placeholder="" name="Build_Area" id="Build_Area" class="form-control" required>
           </div><br>
     
           <div class="form-group">
-            <input type="number" placeholder="Enter no. of Amenities" name="Amenities" id="Amenities" class="form-control" required>
+            Enter no. of Amenities
+            <input type="number" placeholder="" name="Amenities" id="Amenities" class="form-control" required>
           </div>
           <br><hr><br>
     
