@@ -51,10 +51,10 @@ def prediction(request):
 
 def predict(request):
     print(request)
+    temp=dict()
     if request.method == 'POST':
             
         temp=dict()
-        # temp.columns =['Name', 'Code', 'Age', 'Weight']
         temp['City'] = [request.POST.get('City')]
         temp['Address'] = [request.POST.get('Address')]
         temp['Bedroom'] = [request.POST.get('Bedroom')]
@@ -68,13 +68,12 @@ def predict(request):
         temp['Road_Type'] = [request.POST.get('Road_Type')]
         temp['Build_Area'] = [request.POST.get('Build_Area')]
         temp['Amenities'] = [request.POST.get('Amenities')]
-        print(temp)
 
     data_df = pd.DataFrame(temp)
     ans= int(reloadModel.predict(data_df))
 
     context={'scoreval':ans,'temp':temp}
-    return render(request,'base.html',context)
+    return render(request,'predict.html',context)
 
 # @login_required
 def listing_list(request):
@@ -299,50 +298,3 @@ class add_comment(CreateView):
         return super().form_valid(form)
 
     success_url = reverse_lazy('user_specific_listings')
-
-
-# @login_required
-# def listing_create(request):
-#     form = ListingForm()
-#     if request.method == "POST":
-#         form = ListingForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("listings/")
-
-#     context = {
-#         "form":form
-#     }
-#     return render(request, "listing_create.html", context)
-
-# @login_required
-# def listing_update(request, pk):
-#     listing= Listing.objects.get(id=pk)
-
-#     if request.method == "POST":
-#         form = ListingForm(request.POST, instance=listing, files = request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             # context["success"] = True
-#             # context["successmsg"] = "Details successfully updated"
-#             return HttpResponseRedirect(reverse('listing_retrieve', args=[str(pk)]))
-#     else:
-#         form = ListingForm(instance=listing)
-
-#     context = {
-#         "form":form
-#     }
-#     return render(request, "listing_update.html", context)
-
-# @login_required
-# def listing_retrieve(request,pk):
-#     listing= Listing.objects.get(id=pk)
-#     # stuff=get_object_or_404(Listing, id=request.kwargs['pk'])
-#     # liked=False
-#     # if stuff.likes.filter(id=request.user.id).exists():
-#     #     liked = True
-#     context={
-#         "listing":listing
-#         # "listing":listing, "liked":liked
-#     }
-#     return render(request,"listing.html",context)
