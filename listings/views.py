@@ -16,7 +16,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 
 #load the machine learning model
-reloadModel = joblib.load('./models/pipeline1.pkl')
+reloadModel = joblib.load('./models/pipeline.pkl')
 
 # Create your views here.
 class CustomLoginView(LoginView):
@@ -56,21 +56,22 @@ def predict(request):
         temp=dict()
         # temp.columns =['Name', 'Code', 'Age', 'Weight']
         temp['City'] = [request.POST.get('City')]
+        temp['Address'] = [request.POST.get('Address')]
         temp['Bedroom'] = [request.POST.get('Bedroom')]
         temp['Bathroom'] = [request.POST.get('Bathroom')]
         temp['Floors'] = [request.POST.get('Floors')]
         temp['Parking'] = [request.POST.get('Parking')]
+        temp['Year'] = [request.POST.get('Year')]
         temp['Face'] = [request.POST.get('Face')]
         temp['Area'] = [request.POST.get('Area')]
         temp['Road_Width'] = [request.POST.get('Road_Width')]
         temp['Road_Type'] = [request.POST.get('Road_Type')]
         temp['Build_Area'] = [request.POST.get('Build_Area')]
         temp['Amenities'] = [request.POST.get('Amenities')]
-    print(temp)
+        print(temp)
 
     data_df = pd.DataFrame(temp)
     ans= int(reloadModel.predict(data_df))
-    # probs= reloadModel.predict_proba(data_df)
 
     context={'scoreval':ans,'temp':temp}
     return render(request,'base.html',context)
