@@ -22,6 +22,9 @@
                 {% if listing.Image %}
                 <img src="{{ listing.Image.url }}" alt="">
                 {% endif %}
+                <hr><hr><hr><h2 class="text-2xl text-gray-900">Price: Rs. {{listing.Price}}</h2>
+                <div class="text-2xl text-gray-900">Location: {{listing.Location}}</div>
+                <p class="text-2xl text-gray-900">Area: {{listing.Area}} sq. feet</p>
                 <br><center><a href="/listings/{{ listing.slug }}/" class="button">View Details</a></center>
             </div>
             <div>
