@@ -1,4 +1,4 @@
-.button {
+.button{
     display: inline-block;
     width: 100px;
     height: 55px;
@@ -12,7 +12,7 @@
     line-height: 15px;
     text-decoration: none;
     border: 2px solid #000;
-  }
+}
 
 .button:hover{
     color: #000;
