@@ -1,4 +1,4 @@
-# RealEstateApp
+# RealEstateApp :heavy_check_mark:
 
 <p align="justify">
 Real Estate Price Prediction is a fully fledged E-commerce Application built with CRUD
@@ -8,5 +8,5 @@ machine learning application. The prediction models are trained using machine le
 using Nepali housing dataset.
 </p>
 
-# Live Demo:
+# Live Demo: :link:
 You can check this app out by clicking [here](https://real-estate-webapp.onrender.com/)
